@@ -19,6 +19,7 @@
 #include <boost/algorithm/string.hpp>	//boost::split
 #include <boost/bimap.hpp>
 #include <boost/regex.hpp>
+#include <boost/graph/copy.hpp>
 
 #include <exception>
 #include <iterator>
@@ -74,7 +75,7 @@ class CoauthorGraphItem
 {
 public:
 	CoauthorGraphItem(ifstream& fin);
-	CoauthorGraphItem(Graph* graph);
+	CoauthorGraphItem(CoauthorGraphItem& graph);
 	QStringList* updateGraph(ifstream& fin);
 
 	// get set

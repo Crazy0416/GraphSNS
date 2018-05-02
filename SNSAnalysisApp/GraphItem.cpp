@@ -252,102 +252,24 @@ CoauthorGraphItem::CoauthorGraphItem(ifstream& fin)
 	}
 }
 
-CoauthorGraphItem::CoauthorGraphItem(Graph* _graph)
+CoauthorGraphItem::CoauthorGraphItem(CoauthorGraphItem& src)
+	: edges(src.edges), node_ids(src.node_ids), edges_indexes(src.edges_indexes), node_cnt(src.node_cnt), line_cnt(src.line_cnt)
 {
-	graph = _graph;
-
-	typedef typename graph_traits<Graph>::edge_iterator edge_iterator;
-	typedef typename graph_traits<Graph>::vertex_iterator vertex_iterator;
-	vertex_iterator vi, vi_end;
-
-	typedef square_topology<> Topology;
-	boost::minstd_rand gen;
-	Topology topology(gen, (double)SCREEN_SIZE);
-	Topology::point_type origin;
-	origin[0] = origin[1] = (double)SCREEN_SIZE;
-	Topology::point_difference_type extent;
-	extent[0] = extent[1] = (double)SCREEN_SIZE;
-	rectangle_topology<> rect_top(gen,
-		-SCREEN_SIZE / 2, -SCREEN_SIZE / 2,
-		SCREEN_SIZE / 2, SCREEN_SIZE / 2);
-
-	switch (LAYOUT_MODE) {
-	case GRAPH_LAYOUT::RANDOM_LAYOUT:
-		random_graph_layout(*graph, get(vertex_position, *graph), rect_top);
-		break;
-
-	case GRAPH_LAYOUT::CIRCLE_LAYOUT:
-		circle_graph_layout(*graph, get(vertex_position, *graph), SCREEN_SIZE / 2);
-		break;
-
-	case GRAPH_LAYOUT::FRUCHTERMAN_REINGOLD_LAYOUT:
-		fruchterman_reingold_force_directed_layout(*graph,
-			get(vertex_position, *graph),
-			topology,
-			attractive_force(square_distance_attractive_force())
-			.cooling(linear_cooling<double>(50))
-		);
-		break;
+	this->graph = src.graph;			// Not deep copy!!!!!!
+	//nodeList copy
+	for (auto& item : src.nodeList) {
+		NodeItem* dump = new NodeItem(*item);
+		this->nodeList << dump;
 	}
-
-	// vertex info(참여도) initialization
-	vector<int> vInfo;
-	for (boost::tie(vi, vi_end) = vertices(*graph); vi != vi_end; ++vi)
-		vInfo.push_back(0);
-
-	vector<vector<std::string>> vcoauthor;		// vertex coauthor(노드 공동 작업자 이름 벡터)
-	for (boost::tie(vi, vi_end) = vertices(*graph); vi != vi_end; ++vi)
-	{
-		vector<std::string> tmp;
-		vcoauthor.push_back(tmp);
+	// EdgeList copy
+	for (auto& item : src.edgeList) {
+		EdgeItem* dump = new EdgeItem(*item);
+		this->edgeList << dump;
 	}
-
-	//add edges
-	typedef square_topology<> Topology;
-	typedef typename Topology::point_type Point;
-	auto position = get(vertex_position, *graph);
-	auto index = get(vertex_index, *graph);
-	auto label = get(vertex_name, *graph);
-
-	typedef boost::graph_traits<Graph>::vertex_descriptor vertex_descriptor;
-	typename graph_traits<Graph>::edge_iterator ei, ei_end;
-	vertex_descriptor u, v;  int i;
-	for (boost::tie(ei, ei_end) = boost::edges(*graph); ei != ei_end; ++ei) {
-		// vertex info set
-		i = index[ei->m_source];
-		vInfo[i]++;
-		vcoauthor[i].push_back(label[ei->m_target]);		// coauthor 이름 벡터에 넣음
-
-		i = index[ei->m_target];
-		vInfo[i]++;
-		vcoauthor[i].push_back(label[ei->m_source]);		// coauthor 이름 벡터에 넣음
-		
-		u = source(*ei, *graph);
-		v = target(*ei, *graph);
-		Point p1 = position[u];
-		Point p2 = position[v];
-
-		//make edge item and push it to list
-		EdgeItem *edge;
-		edge = new EdgeItem(p1[0], p1[1], p2[0], p2[1], QColor(Qt::black), 0, index[ei->m_source], index[ei->m_target]);
-
-		edge->setPos(p1[0], p1[1]);
-		edgeList << edge;
-	}
-
-	//add nodes
-	i = 0;
-	for (boost::tie(vi, vi_end) = vertices(*graph); vi != vi_end; ++vi) {
-		Point p = position[*vi];
-		std::string name = label[*vi];
-
-		//make node item and push it to list
-		NodeItem *node;
-		node = new NodeItem(p[0], p[1], QColor(Qt::green), QString(name.c_str()),vInfo[i], vcoauthor[i]);
-
-		node->setPos(QPointF(p[0], p[1]));
-		nodeList << node;
-		i++;
+	// minHeap copy
+	for (auto& item : src.minHeap) {
+		NodeItem* dump = new NodeItem(*item);
+		this->minHeap.push_back(dump);
 	}
 }
 

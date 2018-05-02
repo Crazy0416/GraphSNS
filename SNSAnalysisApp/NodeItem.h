@@ -34,6 +34,7 @@ public:
 	NodeItem(double x, double y, QColor color, QString label);
 	NodeItem(double x, double y, QColor color, QString label, int weightSum);
 	NodeItem(double x, double y, QColor color, QString label, int weightSum, std::vector<std::string> coauthorList);
+	NodeItem(NodeItem& src);
 
 	QRectF boundingRect() const override;
 	QPainterPath shape() const override;

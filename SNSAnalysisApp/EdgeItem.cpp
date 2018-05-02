@@ -29,6 +29,9 @@ EdgeItem::EdgeItem(double x1, double y1, double x2, double y2, QColor color, int
 					/*setFlags(ItemIsSelectable | ItemIsMovable);
 					setAcceptHoverEvents(true);*/
 }
+EdgeItem::EdgeItem(EdgeItem& src)
+	: x1(src.x1), y1(src.y1), x2(src.x2), y2(src.y2), width(src.width), color(src.color),
+	start_nodeIndex(src.start_nodeIndex), end_nodeIndex(src.end_nodeIndex), Label(src.Label) {}
 
 QRectF EdgeItem::boundingRect() const
 {

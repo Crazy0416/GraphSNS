@@ -68,6 +68,21 @@ NodeItem::NodeItem(double x, double y, QColor color, QString label, int weightSu
 	setZValue(1);
 }
 
+NodeItem::NodeItem(NodeItem& src)
+	: x(src.x), y(src.y), color(src.color), label(src.label), weightSum(src.weightSum),
+	mousePressmode(src.mousePressmode)
+{
+	// copy coauthorList
+	for (auto item : src.coauthorList) {
+		coauthorList.push_back(item);
+	}
+	// copy bibliographyList
+	for (auto item : src.bibliographyList) {
+		bibliographyData dump = { item.year, item.key };
+		bibliographyList.push_back(dump);
+	}
+}
+
 QRectF NodeItem::boundingRect() const
 {
 	return QRectF(0, 0, NODE_SIZE, NODE_SIZE);

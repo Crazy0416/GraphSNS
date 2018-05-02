@@ -22,6 +22,7 @@ protected:
 
 public:
 	EdgeItem(double x1, double y1, double x2, double y2, QColor color, int width, int start = -1, int end = -1);
+	EdgeItem(EdgeItem& src);
 
 	QRectF boundingRect() const override;
 	QPainterPath shape() const override;
