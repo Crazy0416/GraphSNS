@@ -1,0 +1,37 @@
+conf/iastedCSN/Mojumdar06||Ranjan K. Mojumdar||2006
+conf/iastedCSN/KeimS06||Werner Keim&&Arpad L. Scholtz||2006
+conf/iastedCSN/PourKKI06||Alireza Nemaney Pour&&Kazuya Kumekawa&&Toshihiko Kato&&Shuichi Itoh||2006
+conf/iastedCSN/Rivero-Angeles06||Mario E. Rivero-Angeles||2006
+conf/iastedCSN/OsterbergZ06||Patrik Osterberg&&Tingting Zhang||2006
+conf/iastedCSN/GambiRCS06||Ennio Gambi&&Giorgia Righi&&Franco Chiaraluce&&Susanna
+conf/fsr/AndersonPPI09||Sterling J. Anderson&&Steven C. Peters&&Tom E. Pilutti&&Karl Iagnemma||2009
+conf/fsr/ValadaVKTKS12||Abhinav Valada&&Prasanna Velagapudi&&Balajee Kannan&&Christopher Tomaszewski&&George Kantor&&Paul Scerri||2012
+conf/fsr/VasquezFAL05||Dizan Vasquez&&Thierry Fraichard&&Olivier Aycard&&Christian Laugier||2005
+conf/icwe/TrujilloPD04||Salvador Trujillo&&Inaki Paz&&Oscar Diaz||2004
+conf/icwe/Aalst13||Wil M. P. van der Aalst||2013
+conf/icwe/GomesS06||Daniel Gomes&&Mario J. Silva||2006
+conf/icwe/GaubatzHZS13||Patrick Gaubatz&&Waldemar Hummer&&Uwe Zdun&&Mark Strembeck||2013
+conf/icwe/Guinard10||Dominique Guinard||2010
+conf/icwe/SampaioVS04a||Americo Sampaio&&Alexandre Vasconcelos&&Pedro R. Falcone Sampaio||2004
+conf/icwe/TrujilloPD04||Salvador Trujillo&&Inaki Paz&&Oscar Diaz||2004
+conf/icwe/Aalst13||Wil M. P. van der Aalst||2013
+conf/icwe/GomesS06||Daniel Gomes&&Mario J. Silva||2006
+conf/icwe/GaubatzHZS13||Patrick Gaubatz&&Waldemar Hummer&&Uwe Zdun&&Mark Strembeck||2013
+conf/icwe/Guinard10||Dominique Guinard||2010
+conf/icwe/SampaioVS04a||Americo Sampaio&&Alexandre Vasconcelos&&Pedro R. Falcone Sampaio||2004
+conf/icwe/CasteleynGT04||Sven Casteleyn&&Irene Garrigos&&Olga De Troyer||2004
+conf/icwe/2011w||||2012
+conf/icwe/GarciaNC03||Omar Garcia&&Srivalli Vilapakkam Nagarajan&&Peter R. Croll||2003
+conf/icwe/KroissKK09||Christian Kroiss&&Nora Koch&&Alexander Knapp||2009
+conf/icwe/YanbeJNT07||Yusuke Yanbe&&Adam Jatowt&&Satoshi Nakamura&&Katsumi Tanaka||2007
+conf/icwe/BeckerPO13||Pablo Becker&&Fernanda Papa&&Luis Olsina||2013
+conf/icwe/Frankova07||Ganna Frankova||2007
+conf/icwe/Biewald11||Lukas Biewald||2011
+conf/icwe/DesruelleBG11||Heiko Desruelle&&Dieter Blomme&&Frank Gielen||2011
+conf/icwe/Rodriguez-EcheverriaCCPS11||Roberto Rodriguez-Echeverria&&Jose Maria Conejero&&Pedro J. Clemente&&Juan Carlos Preciado&&Fernando Sanchez-Figueroa||2011
+conf/icwe/ArendsG10||Max Arends&&Doron Goldfarb||2010
+conf/icwe/ArellanoDI12||Cristobal Arellano&&Oscar Diaz&&Jon Iturrioz||2012
+conf/icwe/NebelingN13||Michael Nebeling&&Moira C. Norrie||2013
+conf/icwe/SouffriauV10||Wouter Souffriau&&Pieter Vansteenwegen||2010
+conf/icwe/LeeZ05||Meng-Huang Lee&&He-Rong Zhong||2005
+conf/icwe/BreuBHN05||Ruth Breu&&Michael Breu&&Michael Hafner&&Andrea Nowak||2005
