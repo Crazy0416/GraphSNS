@@ -23,10 +23,10 @@ dblpAnalysisApp::dblpAnalysisApp(QWidget *parent)
 
 	subscribemanage = new SubscribeManageWidget(pCGI);
 	// 파일 업데이트
-	QTimer *pTimer = new QTimer(this);
-	QObject::connect(pTimer, SIGNAL(timeout()), SLOT(updateCGI()));
-	QObject::connect(pTimer, SIGNAL(timeout()), SLOT(updatePGI()));
-	pTimer->start(10000); // 1sec == 1000mils;
+	//QTimer *pTimer = new QTimer(this);
+	//QObject::connect(pTimer, SIGNAL(timeout()), SLOT(updateCGI()));
+	//QObject::connect(pTimer, SIGNAL(timeout()), SLOT(updatePGI()));
+	//pTimer->start(10000); // 1sec == 1000mils;
 
 	// 메뉴 바 설정
 	QMenu *pAppMenu;
@@ -153,7 +153,7 @@ void dblpAnalysisApp::Main_Visualization()
 }
 void dblpAnalysisApp::Main_TopK()
 {
-	CoauthorGraphItem* pTempCGI = new CoauthorGraphItem(pCGI->getGraph());
+	CoauthorGraphItem* pTempCGI = new CoauthorGraphItem(*pCGI);
 
 	bool ok;
 	QString K = QInputDialog::getText(NULL, "K Size", "K Size", QLineEdit::Normal, "", &ok);
@@ -168,7 +168,7 @@ void dblpAnalysisApp::Main_TopK()
 }
 void dblpAnalysisApp::Main_TopKfromA()
 {
-	CoauthorGraphItem* pTempCGI = new CoauthorGraphItem(pCGI->getGraph());
+	CoauthorGraphItem* pTempCGI = new CoauthorGraphItem(*pCGI);
 
 	bool ok;
 	QString K = QInputDialog::getText(NULL, "K Size", "K Size", QLineEdit::Normal, "", &ok);
@@ -186,7 +186,7 @@ void dblpAnalysisApp::Main_TopKfromA()
 }
 void dblpAnalysisApp::Main_Chain()
 {
-	CoauthorGraphItem* pTempCGI = new CoauthorGraphItem(pCGI->getGraph());
+	CoauthorGraphItem* pTempCGI = new CoauthorGraphItem(*pCGI);
 	QStringList coauthorList;
 	for (int i = 0; i < pCGI->getNodeList().size(); i++) {
 		coauthorList << pCGI->getNodeList()[i]->getLabel();
@@ -228,7 +228,7 @@ void dblpAnalysisApp::Main_AuthorCrawling()
 //=====================================================================================================
 void dblpAnalysisApp::Main_VisualizationInCircle()
 {
-	CoauthorGraphItem* pTempCGI = new CoauthorGraphItem(pCGI->getGraph());
+	CoauthorGraphItem* pTempCGI = new CoauthorGraphItem(*pCGI);
 
 	pTempCGI->VisualizationInCircle();
 
@@ -266,7 +266,7 @@ void dblpAnalysisApp::manageSubscribe()
 
 void dblpAnalysisApp::Print_percent()
 {
-	CoauthorGraphItem* pTempCGI = new CoauthorGraphItem(pCGI->getGraph());
+	CoauthorGraphItem* pTempCGI = new CoauthorGraphItem(*pCGI);
 
 	QStringList coauthorList;
 	for (int i = 0; i < pCGI->getNodeList().size(); i++)
