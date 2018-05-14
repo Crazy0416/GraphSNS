@@ -253,7 +253,7 @@ CoauthorGraphItem::CoauthorGraphItem(ifstream& fin)
 }
 
 CoauthorGraphItem::CoauthorGraphItem(CoauthorGraphItem& src)
-	: edges(src.edges), node_ids(src.node_ids), edges_indexes(src.edges_indexes), node_cnt(src.node_cnt), line_cnt(src.line_cnt)
+	: GraphItem(src.edges, src.node_ids, src.edges_indexes, src.node_cnt, src.line_cnt)
 {
 	this->graph = src.graph;			// Not deep copy!!!!!!
 	//nodeList copy

@@ -70,8 +70,45 @@ typedef boost::bimap<string, int> bm_type;
 
 //==================================================================================================
 
+class GraphItem {
+public: 
+	GraphItem() {};
+	GraphItem(vector<pair<string, string>> edges, bm_type node_ids, 
+		vector<simple_edge> edges_indexes, int node_cnt, int line_cnt) {
+		this->edges = edges;
+		this->node_ids = node_ids;
+		this->edges_indexes = edges_indexes;
+		this->node_cnt = node_cnt;
+		this->line_cnt = line_cnt;
+	};
+	~GraphItem() {};
+
+	int getFileSize() {
+		return curFileSize;
+	}
+
+	void setFileSize(int size) {
+		curFileSize = size;
+	}
+
+protected:
+	Graph * graph = nullptr;
+	QList<NodeItem *> nodeList;
+	QList<EdgeItem *> edgeList;
+	vector<NodeItem*> minHeap;
+
+	int curFileSize;				// 최근 파일 크기. 파일 변경확인
+
+	vector<pair<string, string>> edges;
+	bm_type node_ids;
+	vector<simple_edge> edges_indexes;	//int로 변환된 edge
+
+	int node_cnt = 0;
+	int line_cnt = 0;
+};
+
 class CoauthorGraphItem
-	: public QGraphicsItem
+	: public QGraphicsItem, public GraphItem
 {
 public:
 	CoauthorGraphItem(ifstream& fin);
@@ -105,25 +142,12 @@ protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 	void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
 	void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
-
-private:
-	Graph *graph = nullptr;
-	QList<NodeItem *> nodeList;
-	QList<EdgeItem *> edgeList;
-	vector<NodeItem*> minHeap;
-	
-	vector<pair<string, string>> edges;
-	bm_type node_ids;
-	vector<simple_edge> edges_indexes;	//int로 변환된 edge
-
-	int node_cnt = 0;
-	int line_cnt = 0;
 };
 
 //==================================================================================================
 
 class PaperGraphItem
-	: public QGraphicsItem
+	: public QGraphicsItem, public GraphItem
 {
 public:
 	PaperGraphItem(ifstream& fin);
@@ -145,17 +169,4 @@ protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 	void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
 	void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
-
-private:
-	Graph *graph = nullptr;
-	QList<NodeItem *> nodeList;
-	QList<EdgeItem *> edgeList;
-	vector<NodeItem*> minHeap;
-
-	vector<pair<string, string>> edges;
-	bm_type node_ids;
-	vector<simple_edge> edges_indexes;	//int로 변환된 edge
-
-	int node_cnt = 0;
-	int line_cnt = 0;
 };
