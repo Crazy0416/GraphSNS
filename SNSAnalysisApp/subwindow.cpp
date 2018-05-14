@@ -16,6 +16,7 @@ subwindow::subwindow(QWidget *parent)
 	widget->setLayout(layout);
 	setCentralWidget(widget);
 	setWindowTitle(tr("sub window"));
+	resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
 	
 	// 메뉴 바 설정
 	QMenu *pAppMenu;
