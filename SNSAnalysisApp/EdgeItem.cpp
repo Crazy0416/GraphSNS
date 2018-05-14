@@ -35,7 +35,20 @@ EdgeItem::EdgeItem(EdgeItem& src)
 
 QRectF EdgeItem::boundingRect() const
 {
-	return QRectF(x1, y1, abs(x1 - x2), abs(y1 - y2));
+	double startX, startY;
+	double height = abs(y1 - y2);
+	double width = abs(x1 - x2);
+
+	if (x1 > x2)
+		startX = x2;
+	else
+		startX = x1;
+	if (y1 > y2)
+		startY = y2;
+	else
+		startY = y1;
+
+	return QRectF(startX, startY, width, height);
 }
 
 QPainterPath EdgeItem::shape() const

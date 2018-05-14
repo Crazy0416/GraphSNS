@@ -11,7 +11,8 @@ View::View(const QString& name, QWidget *parent)
 	graphicsView = new GraphicsView(this);
 	graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
 	graphicsView->setOptimizationFlags(QGraphicsView::DontSavePainterState);
-	graphicsView->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+	//graphicsView->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate); // this is legacy
+	graphicsView->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 	graphicsView->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 	graphicsView->scale(0.1, 0.1);
 	//layout

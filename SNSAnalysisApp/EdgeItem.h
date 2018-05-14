@@ -24,7 +24,7 @@ public:
 	EdgeItem(double x1, double y1, double x2, double y2, QColor color, int width, int start = -1, int end = -1);
 	EdgeItem(EdgeItem& src);
 
-	QRectF boundingRect() const override;
+	QRectF boundingRect() const override;		// 아이템의 아웃 바운더리 정함. 이 크기가 화면에서 넘어갈 경우 paint를 하지 않게 만듦
 	QPainterPath shape() const override;
 	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 	qreal getX1() { return x1; }
