@@ -83,6 +83,10 @@ public:
 	};
 	~GraphItem() {};
 
+	// get set
+	QList<NodeItem *> getNodeList() { return nodeList; }
+	QList<EdgeItem *> getEdgeList() { return edgeList; }
+
 	int getFileSize() {
 		return curFileSize;
 	}
@@ -114,10 +118,6 @@ public:
 	CoauthorGraphItem(ifstream& fin);
 	CoauthorGraphItem(CoauthorGraphItem& graph);
 	QStringList* updateGraph(ifstream& fin);
-
-	// get set
-	QList<NodeItem *> getNodeList() { return nodeList; }
-	QList<EdgeItem *> getEdgeList() { return edgeList; }
 
 	//overrides
 	QRectF boundingRect() const override;

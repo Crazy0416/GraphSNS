@@ -62,7 +62,17 @@ void subwindow::setGraph(PaperGraphItem* pPGI)
 {
 	QGraphicsItem* graph_item = pPGI;
 	graph_item->setPos(0, 0);
-	scene->addItem(graph_item);
+	//scene->addItem(graph_item);
+	for (auto index : pPGI->getNodeList())
+	{
+		index->setPos(index->getX(), index->getY());
+		scene->addItem(index);
+	}
+	for (auto index : pPGI->getEdgeList())
+	{
+		//index->setPos(0, 0);
+		scene->addItem(index);
+	}
 }
 
 void subwindow::Main_findAuthor() {

@@ -897,8 +897,11 @@ PaperGraphItem::PaperGraphItem(ifstream& fin)
 		//tokens[2]: Published year.
 		boost::split(tokens, line, boost::is_any_of("||"), boost::token_compress_on);
 		boost::split(authors, tokens[1], boost::is_any_of("&&"), boost::token_compress_on);
-
-		const string& paper_key = tokens[0];
+		
+		string& paper_key = tokens[0];
+		if (tokens.size() > 2) {
+			paper_key += string("||") + tokens[2];
+		}
 		if (node_ids.left.find(paper_key) == node_ids.left.end()) {
 			node_ids.insert(bm_type::value_type(paper_key, node_cnt++));
 
@@ -1365,7 +1368,7 @@ Graph* PaperGraphItem::getGraph()
 }
 void PaperGraphItem::Filtering(QString _year, QString _conf)
 {
-	_year.remove(0, 2);
+	//_year.remove(0, 2);
 	string year = _year.toUtf8().constData();
 	string conf = _conf.toUtf8().constData();
 
@@ -1393,19 +1396,18 @@ void PaperGraphItem::Filtering(QString _year, QString _conf)
 		EdgeItem *edge;
 		NodeItem *node1;
 		NodeItem *node2;
+		qDebug() << "label[u]: " << label[u].c_str() << " label[v]: " << label[v].c_str() << endl;
 		if ((label[u].find(conf) != -1 || label[v].find(conf) != -1) && (label[u].find(year) != -1 || label[v].find(year) != -1))
 		{
-
-
 			edge = new EdgeItem(p1[0], p1[1], p2[0], p2[1], QColor(Qt::black), 0);
-			edge->setPos(p1[0], p1[1]);
+			edge->setPos(QPoint(0, 0));
 			edgeList << edge;
 
 			node1 = new NodeItem(p1[0], p1[1], QColor(Qt::green), QString(label[u].c_str()));
 			node2 = new NodeItem(p2[0], p2[1], QColor(Qt::green), QString(label[v].c_str()));
 
-			node1->setPos(QPoint(p1[0], p1[1]));
-			node2->setPos(QPoint(p2[0], p2[1]));
+			node1->setPos(QPoint(0, 0));
+			node2->setPos(QPoint(0, 0));
 			nodeList << node1 << node2;
 		}
 	}
