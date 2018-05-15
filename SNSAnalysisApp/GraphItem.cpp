@@ -798,7 +798,7 @@ void CoauthorGraphItem::VisualizationInCircle()
 		EdgeItem *edge;
 		edge = new EdgeItem(p1[0], p1[1], p2[0], p2[1], QColor(Qt::black), 0);
 
-		edge->setPos(p1[0], p1[1]);
+		edge->setPos(0, 0);
 		edgeList << edge;
 	}
 

@@ -169,14 +169,18 @@ void dblpAnalysisApp::Main_TopK()
 void dblpAnalysisApp::Main_TopKfromA()
 {
 	CoauthorGraphItem* pTempCGI = new CoauthorGraphItem(*pCGI);
+	QStringList coauthorList;
+	for (int i = 0; i < pCGI->getNodeList().size(); i++) {
+		coauthorList << pCGI->getNodeList()[i]->getLabel();
+	}
 
 	bool ok;
 	QString K = QInputDialog::getText(NULL, "K Size", "K Size", QLineEdit::Normal, "", &ok);
 	if (ok && !K.isEmpty())
 		;// K 숫자 입력인지 예외 처리
 
-	QString author = QInputDialog::getText(NULL, "Author Name", "Author Name", QLineEdit::Normal, "", &ok);
-	// author name 없는 경우 예외 처리
+	//QString author = QInputDialog::getText(NULL, "Author Name", "Author Name", QLineEdit::Normal, "", &ok);
+	QString author = QInputDialog::getItem(this, "choose author", "Choose author", coauthorList);
 
 	pTempCGI->TopKfromA(K.toInt(),author);
 
