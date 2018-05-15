@@ -513,13 +513,18 @@ void CoauthorGraphItem::TopK(int K)
 
 void CoauthorGraphItem::TopKfromA(int K, QString author)
 {
-	int source;
+	int source = -1;
 	for(int i=0;i<nodeList.size();i++)
 		if (author == nodeList[i]->getLabel())
 		{
 			source = i;
 			break;
 		}
+
+	if (source == -1) {		// index를 못찾았을 시
+		QMessageBox::information(nullptr, "잘못된 이름 입력", "author를 찾지 못했습니다.");
+		return ;
+	}
 
 	vector<NodeItem*> adj;
 	auto index = get(vertex_index, *graph);
