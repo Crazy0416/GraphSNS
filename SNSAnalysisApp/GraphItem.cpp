@@ -482,11 +482,6 @@ void CoauthorGraphItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
 }
 
-Graph* CoauthorGraphItem::getGraph()
-{
-	return graph;
-}
-
 //==================================================================================================
 void CoauthorGraphItem::TopK(int K)
 {
@@ -1362,10 +1357,6 @@ void PaperGraphItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
 }
 
-Graph* PaperGraphItem::getGraph()
-{
-	return graph;
-}
 void PaperGraphItem::Filtering(QString _year, QString _conf)
 {
 	//_year.remove(0, 2);

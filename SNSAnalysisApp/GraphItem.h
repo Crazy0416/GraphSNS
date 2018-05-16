@@ -87,20 +87,19 @@ public:
 	QList<NodeItem *> getNodeList() { return nodeList; }
 	QList<EdgeItem *> getEdgeList() { return edgeList; }
 
-	int getFileSize() {
-		return curFileSize;
-	}
+	int getFileSize() { return curFileSize; }
+	void setFileSize(int size) { curFileSize = size; }
+	Graph* getGraph() { return graph; }
 
-	void setFileSize(int size) {
-		curFileSize = size;
-	}
+public:
+	//methods
+	void path_highlighting(std::string start, std::string end);
 
 protected:
 	Graph * graph = nullptr;
 	QList<NodeItem *> nodeList;
 	QList<EdgeItem *> edgeList;
 	vector<NodeItem*> minHeap;
-
 	int curFileSize;				// 최근 파일 크기. 파일 변경확인
 
 	vector<pair<string, string>> edges;
@@ -126,7 +125,6 @@ public:
 
 	//methods
 	void path_highlighting(std::string start, std::string end);
-	Graph* getGraph();
 	void TopK(int K);
 	void TopKfromA(int K, QString author);
 	void chain(QString author1, QString author2);
@@ -161,7 +159,6 @@ public:
 
 	//methods
 	void path_highlighting(std::string start, std::string end);
-	Graph* getGraph();
 	void Filtering(QString year, QString conf);
 	void TopKUsingPaper(QString criteria, QString year, QString conf, int K);
 
