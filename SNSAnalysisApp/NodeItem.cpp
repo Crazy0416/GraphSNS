@@ -106,7 +106,7 @@ void NodeItem::paint(QPainter * painter, const QStyleOptionGraphicsItem * option
 	pen.setColor(QColor(Qt::black));
 
 	//label Ãâ·Â
-	QFont font("Gulim", 3);
+	QFont font("Gulim", FONT_SIZE);
 	font.setStyleStrategy(QFont::ForceOutline);
 	painter->setFont(font);
 	painter->save();

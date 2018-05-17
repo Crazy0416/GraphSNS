@@ -5,7 +5,8 @@
 #include <vector>
 #include <string>
 
-const int NODE_SIZE = 4;
+const int NODE_SIZE = 10;
+const int FONT_SIZE = 7;
 
 struct bibliographyData {
 	int year;

@@ -825,6 +825,7 @@ void CoauthorGraphItem::paint_percent(QString author)
 		if (author == nodeList[i]->getLabel())
 		{
 			idx = i;
+			nodeList[i]->setColor(QColor(Qt::blue));
 		}
 	}
 
