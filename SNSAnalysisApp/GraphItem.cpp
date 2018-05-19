@@ -87,6 +87,9 @@ CoauthorGraphItem::CoauthorGraphItem(ifstream& fin)
 	if (!fin)
 		throw std::exception("coauthor graph file input is invalid");
 
+	// set file size
+	setFileSize(fin);
+
 	/**
 	*	Parse Coauthor dataset
 	*	- author1, author2 publish_year
@@ -869,6 +872,9 @@ PaperGraphItem::PaperGraphItem(ifstream& fin)
 {
 	if (!fin)
 		throw std::exception("paper graph file input is invalid");
+
+	// set file size
+	setFileSize(fin);
 
 	/**
 	*	Parse Paper dataset

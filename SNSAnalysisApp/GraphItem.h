@@ -89,6 +89,15 @@ public:
 
 	int getFileSize() { return curFileSize; }
 	void setFileSize(int size) { curFileSize = size; }
+	void setFileSize(ifstream& fin) {
+		long begin, end;
+		fin.seekg(0, ios::beg);
+		begin = fin.tellg();
+		fin.seekg(0, ios::end);
+		end = fin.tellg();
+		
+		this->curFileSize = end - begin;
+	}
 	Graph* getGraph() { return graph; }
 
 public:
@@ -100,7 +109,7 @@ protected:
 	QList<NodeItem *> nodeList;
 	QList<EdgeItem *> edgeList;
 	vector<NodeItem*> minHeap;
-	int curFileSize;				// 최근 파일 크기. 파일 변경확인
+	long curFileSize;				// 최근 파일 크기. 파일 변경확인
 
 	vector<pair<string, string>> edges;
 	bm_type node_ids;
