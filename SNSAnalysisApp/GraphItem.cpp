@@ -276,11 +276,21 @@ CoauthorGraphItem::CoauthorGraphItem(CoauthorGraphItem& src)
 	}
 }
 
-QStringList* CoauthorGraphItem::updateGraph(ifstream& fin)
+void CoauthorGraphItem::updateGraph(ifstream& fin)
 {
-	QStringList* updateCoauthorList = new QStringList();
 	if (!fin)
 		throw std::exception("coauthor graph file input is invalid");
+
+	long prevFileSize = getFileSize();
+	setFileSize(fin);
+	long curFileSize = this->curFileSize;
+
+	if ((curFileSize - prevFileSize) == 0) {
+		qDebug() << "CoauthorGraphItem::updateGraph => " << "No file changed" << endl;
+		return ;
+	}
+
+	fin.seekg(prevFileSize, ios::beg);
 
 	/**
 	*	Parse Coauthor dataset
@@ -293,37 +303,35 @@ QStringList* CoauthorGraphItem::updateGraph(ifstream& fin)
 	qDebug() << "* coauthor graph update start";
 
 	int local_line_cnt = 0;
+	int prevEdgesIndexCnt = edges.size();
+	int prevNodesCnt = node_cnt;
 
 	//한 줄씩 읽어서 Parse
-	while (std::getline(fin, line) && !line.empty()) {
+	while (std::getline(fin, line)) {
+		if (line.empty())
+			continue;
+		line_cnt++;
 
-		local_line_cnt++;
+		//boost::split 이용해 문자열 분리
+		//tokens[0]: Author1
+		//tokens[1]: Author2
+		//tokens[2]: Published year.
+		boost::split(tokens, line, boost::is_any_of("||"), boost::token_compress_on);
 
-		if (local_line_cnt > line_cnt) {
-			
-			line_cnt++;
+		const string& author1 = tokens[0];
+		const string& author2 = tokens[1];
+		//updateCoauthorList->append(QString::fromStdString(author1));
+		//updateCoauthorList->append(QString::fromStdString(author2));
 
-			//boost::split 이용해 문자열 분리
-			//tokens[0]: Author1
-			//tokens[1]: Author2
-			//tokens[2]: Published year.
-			boost::split(tokens, line, boost::is_any_of("||"), boost::token_compress_on);
-
-			const string& author1 = tokens[0];
-			const string& author2 = tokens[1];
-			updateCoauthorList->append(QString::fromStdString(author1));
-			updateCoauthorList->append(QString::fromStdString(author2));
-
-			if (node_ids.left.find(author1) == node_ids.left.end()) {
-				node_ids.insert(bm_type::value_type(author1, node_cnt++));
-			}
-
-			if (node_ids.left.find(author2) == node_ids.left.end()) {
-				node_ids.insert(bm_type::value_type(author2, node_cnt++));
-			}
-
-			edges.push_back(pair<string, string>(author1, author2));
+		if (node_ids.left.find(author1) == node_ids.left.end()) {
+			node_ids.insert(bm_type::value_type(author1, node_cnt++));
 		}
+
+		if (node_ids.left.find(author2) == node_ids.left.end()) {
+			node_ids.insert(bm_type::value_type(author2, node_cnt++));
+		}
+
+		edges.push_back(pair<string, string>(author1, author2));
 
 		//debug
 		if (node_cnt > NODE_LIMIT) break;
@@ -336,14 +344,23 @@ QStringList* CoauthorGraphItem::updateGraph(ifstream& fin)
 	//edge conversion
 	//<string, string> to <int, int>
 	//using boost::bimap (bidirectional map)
+	for (int i = prevEdgesIndexCnt; i < edges.size(); i++) {
+		edges_indexes.push_back({
+			node_ids.left.find(edges[i].first)->get_right(),
+			node_ids.left.find(edges[i].second)->get_right()
+			});
+	}
+	/*	prevCode
 	for (auto edge : edges) {
 		edges_indexes.push_back({
 			node_ids.left.find(edge.first)->get_right(),
 			node_ids.left.find(edge.second)->get_right()
 		});
 	}
+	*/
 	//Graph --> defined in "PaperGraphWidget.h"
 	//Graph graph(edges_indexes.begin(), edges_indexes.end(), node_ids.size());
+	delete graph;
 	graph = new Graph(edges_indexes.begin(), edges_indexes.end(), node_ids.size());
 
 	//set index property
@@ -403,7 +420,11 @@ QStringList* CoauthorGraphItem::updateGraph(ifstream& fin)
 	typedef boost::graph_traits<Graph>::vertex_descriptor vertex_descriptor;
 	typename graph_traits<Graph>::edge_iterator ei, ei_end;
 	vertex_descriptor u, v;
-	for (boost::tie(ei, ei_end) = boost::edges(*graph); ei != ei_end; ++ei) {
+	
+	int _edgeCnt = 1;
+	for (boost::tie(ei, ei_end) = boost::edges(*graph); ei != ei_end; ++ei, ++_edgeCnt) {
+		if (_edgeCnt <= prevEdgesIndexCnt)
+			continue;
 		u = source(*ei, *graph);
 		v = target(*ei, *graph);
 		Point p1 = position[u];
@@ -413,12 +434,15 @@ QStringList* CoauthorGraphItem::updateGraph(ifstream& fin)
 		EdgeItem *edge;
 		edge = new EdgeItem(p1[0], p1[1], p2[0], p2[1], QColor(Qt::black), 0);
 
-		edge->setPos(p1[0], p1[1]);
+		edge->setPos(QPointF(0, 0));
 		edgeList << edge;
 	}
-
+	int _nodeCnt = 1;
 	//add nodes
-	for (boost::tie(vi, vi_end) = vertices(*graph); vi != vi_end; ++vi) {
+	for (boost::tie(vi, vi_end) = vertices(*graph); vi != vi_end; ++vi, _nodeCnt++) {
+		if (_nodeCnt <= prevNodesCnt)
+			continue;
+
 		Point p = position[*vi];
 		std::string name = label[*vi];
 
@@ -426,11 +450,9 @@ QStringList* CoauthorGraphItem::updateGraph(ifstream& fin)
 		NodeItem *node;
 		node = new NodeItem(p[0], p[1], QColor(Qt::green), QString(name.c_str()));
 
-		node->setPos(QPointF(p[0], p[1]));
+		node->setPos(QPointF(0, 0));
 		nodeList << node;
 	}
-
-	return updateCoauthorList;
 }
 
 //override

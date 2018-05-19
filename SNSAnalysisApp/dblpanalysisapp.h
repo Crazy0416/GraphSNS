@@ -5,6 +5,7 @@
 #include <qgridlayout.h>
 #include <qlistwidget.h>
 #include <vector>
+#include <qsemaphore.h>
 
 #include "ui_dblpanalysisapp.h"
 #include "GraphItem.h"
@@ -44,6 +45,9 @@ private:
 	QListWidget* subscribeListWidget;		// 구독자 리스트 위젯
 	vector<QString> subscribeArray;			// 구독자 이름 배열
 	SubscribeManageWidget* subscribemanage;	
+
+	QSemaphore *cgiSem;
+	QSemaphore *pgiSem;
 
 	public slots :
 	// 스트리밍 데이터 처리

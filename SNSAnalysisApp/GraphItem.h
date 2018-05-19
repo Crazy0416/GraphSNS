@@ -95,6 +95,7 @@ public:
 		begin = fin.tellg();
 		fin.seekg(0, ios::end);
 		end = fin.tellg();
+		fin.seekg(0, ios::beg);
 		
 		this->curFileSize = end - begin;
 	}
@@ -125,7 +126,7 @@ class CoauthorGraphItem
 public:
 	CoauthorGraphItem(ifstream& fin);
 	CoauthorGraphItem(CoauthorGraphItem& graph);
-	QStringList* updateGraph(ifstream& fin);
+	void updateGraph(ifstream& fin);
 
 	//overrides
 	QRectF boundingRect() const override;

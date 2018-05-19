@@ -8,6 +8,10 @@ dblpAnalysisApp::dblpAnalysisApp(QWidget *parent)
 {
 	ui.setupUi(this);
 
+	// 세마포어 설정
+	cgiSem = new QSemaphore(1);
+	pgiSem = new QSemaphore(1);
+
 	// 배경 화면 설정
 	ui.setupUi(this);
 	QPixmap bkgnd("bkgnd.png");
@@ -23,10 +27,10 @@ dblpAnalysisApp::dblpAnalysisApp(QWidget *parent)
 
 	subscribemanage = new SubscribeManageWidget(pCGI);
 	// 파일 업데이트
-	//QTimer *pTimer = new QTimer(this);
-	//QObject::connect(pTimer, SIGNAL(timeout()), SLOT(updateCGI()));
+	QTimer *pTimer = new QTimer(this);
+	QObject::connect(pTimer, SIGNAL(timeout()), SLOT(updateCGI()));
 	//QObject::connect(pTimer, SIGNAL(timeout()), SLOT(updatePGI()));
-	//pTimer->start(10000); // 1sec == 1000mils;
+	pTimer->start(10000); // 1sec == 1000mils;
 
 	// 메뉴 바 설정
 	QMenu *pAppMenu;
@@ -87,6 +91,7 @@ dblpAnalysisApp::~dblpAnalysisApp()
 //=====================================================================================================
 void dblpAnalysisApp::load_CGI()
 {
+	cgiSem->acquire(1);
 	try {
 		ifstream fsIn(COAUTHORSHIP_FILENAME);
 		pCGI = new CoauthorGraphItem(fsIn);
@@ -96,9 +101,11 @@ void dblpAnalysisApp::load_CGI()
 	catch (const std::exception& e) {
 		qDebug() << "Coauthor File Reading Error: " << e.what();
 	}
+	cgiSem->release(1);
 }
 void dblpAnalysisApp::load_PGI()
 {
+	pgiSem->acquire(1);
 	try {
 		ifstream fsIn(PAPER_FILENAME);
 		pPGI = new PaperGraphItem(fsIn);
@@ -108,13 +115,16 @@ void dblpAnalysisApp::load_PGI()
 	catch(const std::exception& e) {
 		qDebug() << "Paper File Reading Error: " << e.what();
 	}
+	pgiSem->release(1);
 }
 //=====================================================================================================
 void dblpAnalysisApp::updateCGI()
 {
+	cgiSem->acquire(1);
 	try {
 		ifstream fsIn(COAUTHORSHIP_FILENAME);
-		QStringList* updateCoauthorList = pCGI->updateGraph(fsIn);
+		pCGI->updateGraph(fsIn);
+		/*
 		for (int i = 0; i < updateCoauthorList->size(); i++) {
 			QString coauthorName = updateCoauthorList->at(i);
 			for (int j = 0; j < subscribemanage->getSubscribeList()->count(); j++) {
@@ -125,14 +135,17 @@ void dblpAnalysisApp::updateCGI()
 			}
 		}
 		delete updateCoauthorList;
+		*/
 		fsIn.close();
 	}
 	catch (const std::exception& e) {
 		qDebug() << "Coauthor File Reading Error: " << e.what();
 	}
+	cgiSem->release(1);
 }
 void dblpAnalysisApp::updatePGI()
 {
+	pgiSem->acquire(1);
 	try {
 		ifstream fsIn(PAPER_FILENAME);
 		pPGI->updateGraph(fsIn);
@@ -142,6 +155,7 @@ void dblpAnalysisApp::updatePGI()
 	catch (const std::exception& e) {
 		qDebug() << "Paper File Reading Error: " << e.what();
 	}
+	pgiSem->release(1);
 }
 //=====================================================================================================
 void dblpAnalysisApp::Main_Visualization()
