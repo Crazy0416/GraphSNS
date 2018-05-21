@@ -92,15 +92,7 @@ void subwindow::Main_findAuthor() {
 			* edge count : (node weightsum)
 			* coauthor : (coauthorList)
 			*/
-			string temp2 = to_string(pCGI->getNodeList()[i]->getWeightSum());
-			string temp3 = "";
-			for (int j = 0; j < pCGI->getNodeList()[i]->getcoauthorList().size(); j++){
-				temp3 += pCGI->getNodeList()[i]->getcoauthorList()[j] + ",";
-			}
-			string temp = pCGI->getNodeList()[i]->getLabel().toStdString().append("\nedge count : ") + temp2;
-			temp.append("\ncoauthor : ").append(temp3);
-			//////////////////////////////////////////////////////////////////////////////////
-			QMessageBox::warning(this, "Exists!!", temp.c_str(), QMessageBox::Cancel, QMessageBox::Cancel);
+			pCGI->getNodeList()[i]->setColor(Qt::blue);
 			exist = true;
 		}
 	}
