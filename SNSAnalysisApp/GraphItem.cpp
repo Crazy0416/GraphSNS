@@ -258,16 +258,17 @@ CoauthorGraphItem::CoauthorGraphItem(ifstream& fin)
 CoauthorGraphItem::CoauthorGraphItem(CoauthorGraphItem& src)
 	: GraphItem(src.edges, src.node_ids, src.edges_indexes, src.node_cnt, src.line_cnt)
 {
+	// TODO: curFileSize บนป็
 	this->graph = src.graph;			// Not deep copy!!!!!!
 	//nodeList copy
 	for (auto& item : src.nodeList) {
 		NodeItem* dump = new NodeItem(*item);
-		this->nodeList << dump;
+		this->nodeList.append(dump);
 	}
 	// EdgeList copy
 	for (auto& item : src.edgeList) {
 		EdgeItem* dump = new EdgeItem(*item);
-		this->edgeList << dump;
+		this->edgeList.append(dump);
 	}
 	// minHeap copy
 	for (auto& item : src.minHeap) {

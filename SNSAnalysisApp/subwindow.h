@@ -33,6 +33,7 @@ private:
 	Ui::subwindow ui;
 	QGraphicsScene *scene;
 	CoauthorGraphItem* pCGI;
+	PaperGraphItem* pPGI;
 
 	public slots:
 	void Main_findAuthor();

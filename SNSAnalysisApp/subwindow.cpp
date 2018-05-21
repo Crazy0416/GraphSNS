@@ -43,6 +43,8 @@ void subwindow::initscene()
 
 void subwindow::setGraph(CoauthorGraphItem* pCGI)
 {
+	this->pCGI = pCGI;
+
 	QGraphicsItem* graph_item = pCGI;
 	graph_item->setPos(0, 0);
 	//scene->addItem(pCGI);
@@ -60,6 +62,8 @@ void subwindow::setGraph(CoauthorGraphItem* pCGI)
 
 void subwindow::setGraph(PaperGraphItem* pPGI)
 {
+	this->pPGI = pPGI;
+
 	QGraphicsItem* graph_item = pPGI;
 	graph_item->setPos(0, 0);
 	//scene->addItem(graph_item);
@@ -94,6 +98,9 @@ void subwindow::Main_findAuthor() {
 			*/
 			pCGI->getNodeList()[i]->setColor(Qt::blue);
 			exist = true;
+		}
+		else {
+			pCGI->getNodeList()[i]->setColor(Qt::green);
 		}
 	}
 	if(!exist)
