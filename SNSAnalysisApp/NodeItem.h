@@ -25,6 +25,9 @@ private:
 	std::vector<std::string> coauthorList;// 노드와 연결된 coauthor들의 이름'
 	int	mousePressmode;					//  마우스 프레스 모드 설정
 	std::vector<bibliographyData> bibliographyList;	// 논문 데이터 리스트
+	int fontWeight;
+	int nodeSize;
+	int fontSize;
 
 protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
@@ -33,8 +36,8 @@ protected:
 
 public:
 	NodeItem(double x, double y, QColor color, QString label);
-	NodeItem(double x, double y, QColor color, QString label, int weightSum);
-	NodeItem(double x, double y, QColor color, QString label, int weightSum, std::vector<std::string> coauthorList);
+	NodeItem(double x, double y, QColor color, QString label, int weightSum, int nodeSize = NODE_SIZE, int fontSize = FONT_SIZE);
+	NodeItem(double x, double y, QColor color, QString label, int weightSum, std::vector<std::string> coauthorList, int nodeSize = NODE_SIZE, int fontSize = FONT_SIZE);
 	NodeItem(NodeItem& src);
 
 	QRectF boundingRect() const override;
@@ -49,6 +52,9 @@ public:
 	std::vector<std::string> getcoauthorList() { return coauthorList; }
 	int getX() { return x; }
 	int getY() { return y; }
+	void setFontWeight(int fontWeight) { this->fontWeight = fontWeight; };
+	void setNodeSize(int nodeSize) { this->nodeSize = nodeSize; }
+	void setFontSize(int fontSize) { this->fontSize = fontSize; }
 
 	void coauthorPush_back(std::string coauthor) { coauthorList.push_back(coauthor); }
 	void bibliographyPush_back(bibliographyData data) { bibliographyList.push_back(data); }

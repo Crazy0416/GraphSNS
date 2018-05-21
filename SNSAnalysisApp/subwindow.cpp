@@ -97,6 +97,9 @@ void subwindow::Main_findAuthor() {
 			* coauthor : (coauthorList)
 			*/
 			pCGI->getNodeList()[i]->setColor(Qt::blue);
+			pCGI->getNodeList()[i]->setFontSize(9);
+			pCGI->getNodeList()[i]->setFontWeight(QFont::Bold);
+			pCGI->getNodeList()[i]->setNodeSize(12);
 			exist = true;
 		}
 		else {

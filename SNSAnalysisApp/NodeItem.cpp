@@ -38,12 +38,15 @@ NodeItem::NodeItem(double x, double y, QColor color, QString label)
 	this->label = label;
 	setZValue(1);
 	mousePressmode = 1;
+	fontWeight = QFont::Normal;
+	nodeSize = NODE_SIZE;
+	fontSize = FONT_SIZE;
 
 	setFlags(ItemIsSelectable | ItemIsMovable);
 	setAcceptHoverEvents(true);
 }
 
-NodeItem::NodeItem(double x, double y, QColor color, QString label, int weightSum, std::vector<std::string> coauthorList)
+NodeItem::NodeItem(double x, double y, QColor color, QString label, int weightSum, std::vector<std::string> coauthorList, int nodeSize, int fontSize)
 {
 	this->x = x;
 	this->y = y;
@@ -51,25 +54,32 @@ NodeItem::NodeItem(double x, double y, QColor color, QString label, int weightSu
 	this->label = label;
 	this->weightSum = weightSum;
 	this->coauthorList = coauthorList;
+	this->nodeSize = nodeSize;
+	this->fontSize = fontSize;
+	this->fontWeight = QFont::Normal;
 	mousePressmode = 1;
 	setFlags(ItemIsSelectable | ItemIsMovable);
 	setZValue(1);
 }
 
-NodeItem::NodeItem(double x, double y, QColor color, QString label, int weightSum)
+NodeItem::NodeItem(double x, double y, QColor color, QString label, int weightSum, int nodeSize, int fontSize)
 {
 	this->x = x;
 	this->y = y;
 	this->color = color;
 	this->label = label;
 	this->weightSum = weightSum;
+	this->nodeSize = nodeSize;
+	this->fontSize = fontSize;
+	this->fontWeight = QFont::Normal;
 	mousePressmode = 1;
 	setFlags(ItemIsSelectable | ItemIsMovable);
 	setZValue(1);
 }
 
 NodeItem::NodeItem(NodeItem& src)
-	: x(src.x), y(src.y), color(src.color), label(src.label), weightSum(src.weightSum),
+	: x(src.x), y(src.y), color(src.color), label(src.label), weightSum(src.weightSum)
+	, nodeSize(src.nodeSize), fontSize(src.fontSize), fontWeight(src.fontWeight),
 	mousePressmode(src.mousePressmode)
 {
 	// copy coauthorList
@@ -85,13 +95,13 @@ NodeItem::NodeItem(NodeItem& src)
 
 QRectF NodeItem::boundingRect() const
 {
-	return QRectF(0, 0, NODE_SIZE, NODE_SIZE);
+	return QRectF(0, 0, nodeSize, nodeSize);
 }
 
 QPainterPath NodeItem::shape() const
 {
 	QPainterPath path;
-	path.addRect(0, 0, NODE_SIZE, NODE_SIZE);
+	path.addRect(0, 0, nodeSize, nodeSize);
 	return path;
 }
 
@@ -106,8 +116,9 @@ void NodeItem::paint(QPainter * painter, const QStyleOptionGraphicsItem * option
 	pen.setColor(QColor(Qt::black));
 
 	//label Ãâ·Â
-	QFont font("Gulim", FONT_SIZE);
+	QFont font("Gulim", fontSize);
 	font.setStyleStrategy(QFont::ForceOutline);
+	font.setWeight(fontWeight);
 	painter->setFont(font);
 	painter->save();
 	painter->drawText(0, 0, label);
@@ -119,7 +130,7 @@ void NodeItem::paint(QPainter * painter, const QStyleOptionGraphicsItem * option
 	if (option->state & QStyle::State_MouseOver) fillColor = fillColor.light(125);
 	painter->setPen(pen);
 	painter->setBrush(QBrush(fillColor));
-	painter->drawRect(0, 0, NODE_SIZE, NODE_SIZE);
+	painter->drawRect(0, 0, nodeSize, nodeSize);
 }
 
 void NodeItem::setColor(QColor color)

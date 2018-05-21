@@ -166,8 +166,9 @@ void dblpAnalysisApp::updatePGI()
 void dblpAnalysisApp::Main_Visualization()
 {
 	subwindow* sw = new subwindow;
-	sw->setGraph(pCGI);
-	sw->setCGraph(pCGI);
+	CoauthorGraphItem* pTempCGI = new CoauthorGraphItem(*pCGI);
+	sw->setGraph(pTempCGI);
+	sw->setCGraph(pTempCGI);
 	sw->show();
 }
 void dblpAnalysisApp::Main_TopK()

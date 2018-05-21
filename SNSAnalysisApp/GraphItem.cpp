@@ -533,8 +533,12 @@ void CoauthorGraphItem::TopK(int K)
 		}
 	}
 
-	for (int i = 0; i < minHeap.size(); i++)
+	for (int i = 0; i < minHeap.size(); i++) {
 		minHeap[i]->setColor(QColor(Qt::red));
+		minHeap[i]->setFontWeight(QFont::Bold);
+		minHeap[i]->setFontSize(9);
+		minHeap[i]->setNodeSize(12);
+	}
 }
 
 void CoauthorGraphItem::TopKfromA(int K, QString author)
@@ -585,10 +589,17 @@ void CoauthorGraphItem::TopKfromA(int K, QString author)
 		}
 	}
 
-	for (int i = 0; i < minHeap.size(); i++)
+	for (int i = 0; i < minHeap.size(); i++) {
 		minHeap[i]->setColor(QColor(Qt::red));
+		minHeap[i]->setFontWeight(QFont::Bold);
+		minHeap[i]->setFontSize(9);
+		minHeap[i]->setNodeSize(12);
+	}
 
 	nodeList[source]->setColor(QColor(Qt::blue));
+	nodeList[source]->setFontWeight(QFont::Bold);
+	nodeList[source]->setFontSize(9);
+	nodeList[source]->setNodeSize(12);
 }
 
 
@@ -857,6 +868,8 @@ void CoauthorGraphItem::paint_percent(QString author)
 		{
 			idx = i;
 			nodeList[i]->setColor(QColor(Qt::blue));
+			nodeList[i]->setFontSize(12);
+			nodeList[i]->setFontWeight(QFont::Bold);
 		}
 	}
 
