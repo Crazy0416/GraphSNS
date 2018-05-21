@@ -111,3 +111,5 @@ Alin C||Mary F. Fernandez||2017
 Alin D||Mary F. Fernandez||2017
 Alin E||Mary F. Fernandez||2017
 Alin E||Hey||2017
+Alin Deutsch||Hello World||2017
+Alin Deutsch||Kim Minho||2017

@@ -121,10 +121,16 @@ void dblpAnalysisApp::load_PGI()
 void dblpAnalysisApp::updateCGI()
 {
 	cgiSem->acquire(1);
+	QStringList* updateCoauthorList;
 	try {
 		ifstream fsIn(COAUTHORSHIP_FILENAME);
-		pCGI->updateGraph(fsIn);
-		/*
+		updateCoauthorList = pCGI->updateGraphReturnAuthorList(fsIn);
+		
+		if (updateCoauthorList == nullptr) {
+			cgiSem->release(1);
+			return;
+		}
+		
 		for (int i = 0; i < updateCoauthorList->size(); i++) {
 			QString coauthorName = updateCoauthorList->at(i);
 			for (int j = 0; j < subscribemanage->getSubscribeList()->count(); j++) {
@@ -135,7 +141,6 @@ void dblpAnalysisApp::updateCGI()
 			}
 		}
 		delete updateCoauthorList;
-		*/
 		fsIn.close();
 	}
 	catch (const std::exception& e) {

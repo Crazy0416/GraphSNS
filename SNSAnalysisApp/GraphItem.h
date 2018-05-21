@@ -126,7 +126,7 @@ class CoauthorGraphItem
 public:
 	CoauthorGraphItem(ifstream& fin);
 	CoauthorGraphItem(CoauthorGraphItem& graph);
-	void updateGraph(ifstream& fin);
+	QStringList* updateGraphReturnAuthorList(ifstream& fin);
 
 	//overrides
 	QRectF boundingRect() const override;

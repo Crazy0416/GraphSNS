@@ -277,8 +277,11 @@ CoauthorGraphItem::CoauthorGraphItem(CoauthorGraphItem& src)
 	}
 }
 
-void CoauthorGraphItem::updateGraph(ifstream& fin)
+QStringList* CoauthorGraphItem::updateGraphReturnAuthorList(ifstream& fin)
 {
+	QStringList* updateCoauthorList = new QStringList();
+
+
 	if (!fin)
 		throw std::exception("coauthor graph file input is invalid");
 
@@ -288,7 +291,7 @@ void CoauthorGraphItem::updateGraph(ifstream& fin)
 
 	if ((curFileSize - prevFileSize) == 0) {
 		qDebug() << "CoauthorGraphItem::updateGraph => " << "No file changed" << endl;
-		return ;
+		return nullptr;
 	}
 
 	fin.seekg(prevFileSize, ios::beg);
@@ -321,8 +324,8 @@ void CoauthorGraphItem::updateGraph(ifstream& fin)
 
 		const string& author1 = tokens[0];
 		const string& author2 = tokens[1];
-		//updateCoauthorList->append(QString::fromStdString(author1));
-		//updateCoauthorList->append(QString::fromStdString(author2));
+		updateCoauthorList->append(QString::fromStdString(author1));
+		updateCoauthorList->append(QString::fromStdString(author2));
 
 		if (node_ids.left.find(author1) == node_ids.left.end()) {
 			node_ids.insert(bm_type::value_type(author1, node_cnt++));
@@ -454,6 +457,8 @@ void CoauthorGraphItem::updateGraph(ifstream& fin)
 		node->setPos(QPointF(0, 0));
 		nodeList << node;
 	}
+
+	return updateCoauthorList;
 }
 
 //override
