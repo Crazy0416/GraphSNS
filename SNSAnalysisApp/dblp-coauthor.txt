@@ -1,4 +1,4 @@
-﻿Alin Deutsch||Mary F. Fernandez||1998
+Alin Deutsch||Mary F. Fernandez||1998
 Alin Deutsch||Daniela Florescu||1998
 Alin Deutsch||Alon Y. Levy||1998
 Alin Deutsch||Dan Suciu||1998
@@ -46,11 +46,6 @@ Antje Schweitzer||Grzegorz Dogil||2006
 Alin Deutsch||Grzegorz Dogil||2006
 Alin Deutsch||Norbert Braunschweiler||2006
 Eleanor Eytam||Ben Goertze||2006
-A||B||2017
-B||C||2017
-C||D||2017
-A||D||2017
-D||E||2017
 Hidir Aras||Matthias Merdes||2006
 Hidir Aras||Dennis Pfisterer||2006
 Hidir Aras||Matthias Jost||2006
@@ -106,10 +101,10 @@ David Gelbart||Manja Baudis||2006
 David Gelbart||Nelson Morgan||2006
 John Bryant||Andreas Stolcke||2006
 John Bryant||Robert Porzel||2006
-Alin Deutsch||Mary F. Fernandez||2017
-Alin C||Mary F. Fernandez||2017
-Alin D||Mary F. Fernandez||2017
-Alin E||Mary F. Fernandez||2017
-Alin E||Hey||2017
-Alin Deutsch||Hello World||2017
-Alin Deutsch||Kim Minho||2017
+A||B||2017
+B||C||2017
+C||D||2017
+A||D||2017
+D||E||2017
+A||F||2017
+A||G||2017
