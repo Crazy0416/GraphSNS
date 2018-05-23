@@ -81,7 +81,7 @@ public:
 		this->node_cnt = node_cnt;
 		this->line_cnt = line_cnt;
 	};
-	~GraphItem() {};
+	virtual ~GraphItem();
 
 	// get set
 	QList<NodeItem *> getNodeList() { return nodeList; }
@@ -127,6 +127,9 @@ public:
 	CoauthorGraphItem(ifstream& fin);
 	CoauthorGraphItem(CoauthorGraphItem& graph);
 	QStringList* updateGraphReturnAuthorList(ifstream& fin);
+	~CoauthorGraphItem() { 
+		qDebug() << "CoauthorGraphItem delete" << endl; 
+	}
 
 	//overrides
 	QRectF boundingRect() const override;
@@ -160,6 +163,8 @@ class PaperGraphItem
 public:
 	PaperGraphItem(ifstream& fin);
 	PaperGraphItem(Graph* graph);		// »ý±è
+	~PaperGraphItem() { qDebug() << "PaperGraphItem delete" << endl; }
+
 	void updateGraph(ifstream& fin);
 
 	//overrides

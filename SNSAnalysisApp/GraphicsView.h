@@ -37,6 +37,10 @@ private:
 
 public:
 	explicit View(const QString& name, QWidget *parent = 0);
+	~View() { 
+		delete graphicsView;
+		//qDebug() << "delete View" << endl;
+	}
 	QGraphicsView *view() const;
 
 	public slots:

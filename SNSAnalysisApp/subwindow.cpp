@@ -17,7 +17,11 @@ subwindow::subwindow(QWidget *parent)
 	setCentralWidget(widget);
 	setWindowTitle(tr("sub window"));
 	resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
-	
+	this->setAttribute(Qt::WA_DeleteOnClose);	// 화면끄자마자 메모리에서 해제...
+
+	pCGI = nullptr;
+	pPGI = nullptr;
+
 	// 메뉴 바 설정
 	QMenu *pAppMenu;
 	QStatusBar *pStatusBar;
@@ -33,7 +37,12 @@ subwindow::subwindow(QWidget *parent)
 
 subwindow::~subwindow()
 {
-
+	delete scene;			// TODO: 여기서 nodeList와 edgeList 삭제되는지 확인 좀;
+	if(pCGI != nullptr)
+		delete pCGI;
+	if(pPGI != nullptr)
+		delete pPGI;
+	qDebug() << "subwindow delete" << endl;
 }
 //=====================================================================================================
 void subwindow::initscene()

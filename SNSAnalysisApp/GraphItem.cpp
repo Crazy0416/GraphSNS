@@ -1,5 +1,13 @@
 #include "GraphItem.h"
 
+GraphItem::~GraphItem() {
+	// nodeList와 edgeList는 scene 삭제될 때 additem 되어있다면 자동 삭제
+	edges.clear();
+	node_ids.clear();
+	edges_indexes.clear();
+	qDebug() << "GraphItem delete" << endl;
+}
+
 void _ReheapUp(vector<NodeItem*> v, int root, int last)
 {
 
@@ -260,6 +268,7 @@ CoauthorGraphItem::CoauthorGraphItem(CoauthorGraphItem& src)
 {
 	// TODO: curFileSize 복사
 	this->graph = src.graph;			// Not deep copy!!!!!!
+	//boost::copy_graph(this->graph, src.graph);
 	//nodeList copy
 	for (auto& item : src.nodeList) {
 		NodeItem* dump = new NodeItem(*item);
